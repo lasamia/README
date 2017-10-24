@@ -1,0 +1,12 @@
+（1）看到這筆資料，我想到什麼問題
+（2）這個問題可以用現有資料解決嗎？
+（3）這個問題需要用什麼方法解決？例如在R裡可以怎麼解決，還是用其他方式？
+
+(1)
+a. name和species多是完全的對應，但bacteria_146_collection_core_37_90_1和bacteria_164_collection_core_37_90_1的name中，str.後面的資訊沒有出現在species，str.代表的是什麼?
+b. 大部分的細菌在taxonomy_id和species_taxonomy_id會有一致的編號，但有零星個案不是這樣，這些差異代表什麼？
+c. 同一個物種的細菌，在assembly_name, taxonomy_id, assembly_id, species_taxonomy_id中有何不同？
+
+(2) 因為這份資料牽涉到細菌的分類與特徵理解，除了先觀察這些資料細項的同異之處，可能還需要針對各個細項瞭解內容。
+
+(3) 這3個問題或許都可以先試試看用dplyr的group_by來看看在同一個變項中，其他項目的差異，但可能還需要藉助更多附加的項目才能更清楚知道這些項目所代表的意義是什麼。
