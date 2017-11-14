@@ -130,11 +130,28 @@ $(document).ready(function () {
 <pre><code>## The following object is masked from 'package:methods':
 ## 
 ##     getGroup</code></pre>
-<pre class="r"><code>token &lt;- &quot;EAACEdEose0cBAOQJZAm8EZCmZCrKN2cr2hvnH9lAprXJABNbLkQuCWd83RSY5rCDSRu2pGGlWLMEOegod2Qrw7x8P36J2DNJlSgbAoFhxl2kEu5MhL8BNviLVOidZBaPuGhhZB7FjWTZCSH5LZBZCurcOlORvZALynv1XQGmytspD7dV89YKNfh8RcCg3vbgJOFc664cZCZAVPBKgZDZD&quot;</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## Warning: package 'tidyverse' was built under R version 3.4.2</code></pre>
+<pre><code>## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+## Loading tidyverse: dplyr</code></pre>
+<pre><code>## Warning: package 'tibble' was built under R version 3.4.2</code></pre>
+<pre><code>## Warning: package 'tidyr' was built under R version 3.4.2</code></pre>
+<pre><code>## Warning: package 'readr' was built under R version 3.4.2</code></pre>
+<pre><code>## Warning: package 'purrr' was built under R version 3.4.2</code></pre>
+<pre><code>## Warning: package 'dplyr' was built under R version 3.4.2</code></pre>
+<pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
+<pre><code>## filter(): dplyr, stats
+## lag():    dplyr, stats</code></pre>
+<pre class="r"><code>token &lt;- &quot;EAACEdEose0cBAJQmsLbsrttP0LCU4e3VDSk4PdTIzpKIeyyrSb8pLqA6FBN92RPUtFVe3YSZAD8Eqrb4smXZBVyoDMCSbWJEjEMZCohhOh8pwr54QXWvyzdZCn8eDnZBAmlUeNtXDNQetZBtyVbOwXYlqdxWHXH2ZCgn0YHOZBzuOHYev3AWKjKaTZAZCvtIh99CrRmFiR8lZCMPwZDZD&quot;</code></pre>
 <pre class="r"><code>#卡提諾 最近50筆資料
-pages_crazyck101 &lt;- getPage(page=&quot;crazyck101&quot;, token = token, n=50)  </code></pre>
+pages_crazyck101_o &lt;- getPage(page=&quot;crazyck101&quot;, token = token, n=50)  </code></pre>
 <pre><code>## 25 posts 50 posts</code></pre>
-<pre class="r"><code>pages_crazyck101[,c(-1, -7)]</code></pre>
+<pre class="r"><code>pages_crazyck101 &lt;- pages_crazyck101_o[,c(-1, -7)]
+pages_crazyck101</code></pre>
 <pre><code>##       from_name
 ## 1  卡提諾狂新聞
 ## 2  卡提諾狂新聞
@@ -340,25 +357,25 @@ pages_crazyck101 &lt;- getPage(page=&quot;crazyck101&quot;, token = token, n=50)
 ## 49                                                       https://www.facebook.com/crazyck101/videos/1418306904955999/
 ## 50 https://www.facebook.com/crazyck101/photos/a.1022570987862928.1073741828.1021581417961885/1418263908293632/?type=3
 ##                               story likes_count comments_count
-## 1  卡提諾狂新聞 added 2 new photos.        3144            175
-## 2                              &lt;NA&gt;       10085           1194
-## 3                              &lt;NA&gt;        2569             47
-## 4                              &lt;NA&gt;       19160           1105
-## 5                              &lt;NA&gt;        4555            446
-## 6                              &lt;NA&gt;        4458            147
-## 7                              &lt;NA&gt;       13551            485
+## 1  卡提諾狂新聞 added 2 new photos.        3313            185
+## 2                              &lt;NA&gt;       10413           1227
+## 3                              &lt;NA&gt;        2577             47
+## 4                              &lt;NA&gt;       19191           1105
+## 5                              &lt;NA&gt;        4558            446
+## 6                              &lt;NA&gt;        4462            147
+## 7                              &lt;NA&gt;       13560            487
 ## 8                              &lt;NA&gt;        1421             80
 ## 9                              &lt;NA&gt;        2363             54
 ## 10   卡提諾狂新聞 published a note.         291             31
-## 11                             &lt;NA&gt;       12108            306
+## 11                             &lt;NA&gt;       12110            306
 ## 12                             &lt;NA&gt;        7032             69
 ## 13           卡提諾狂新聞 was live.        1560           2700
-## 14                             &lt;NA&gt;        6159            371
+## 14                             &lt;NA&gt;        6160            371
 ## 15                             &lt;NA&gt;        4743           2110
 ## 16                             &lt;NA&gt;        2819             51
 ## 17                             &lt;NA&gt;        1126             39
 ## 18                             &lt;NA&gt;        2473             86
-## 19                             &lt;NA&gt;       18820           1040
+## 19                             &lt;NA&gt;       18821           1040
 ## 20                             &lt;NA&gt;        2948            222
 ## 21                             &lt;NA&gt;        4247            152
 ## 22                             &lt;NA&gt;        1991            109
@@ -373,31 +390,31 @@ pages_crazyck101 &lt;- getPage(page=&quot;crazyck101&quot;, token = token, n=50)
 ## 31                             &lt;NA&gt;        5400            629
 ## 32           卡提諾狂新聞 was live.        1689           4082
 ## 33                             &lt;NA&gt;        1236             91
-## 34                             &lt;NA&gt;       15204           1467
+## 34                             &lt;NA&gt;       15205           1467
 ## 35                             &lt;NA&gt;       13945           2133
 ## 36                             &lt;NA&gt;        8649            386
-## 37                             &lt;NA&gt;        9744           8409
+## 37                             &lt;NA&gt;        9743           8408
 ## 38                             &lt;NA&gt;        4011            123
 ## 39                             &lt;NA&gt;        4971            222
-## 40                             &lt;NA&gt;       16072           1047
+## 40                             &lt;NA&gt;       16073           1047
 ## 41                             &lt;NA&gt;        6081            294
 ## 42   卡提諾狂新聞 published a note.         301             17
 ## 43           卡提諾狂新聞 was live.        6018          14857
 ## 44                             &lt;NA&gt;        3649            171
 ## 45                             &lt;NA&gt;        8859            881
-## 46                             &lt;NA&gt;       47650           5120
+## 46                             &lt;NA&gt;       47651           5120
 ## 47   卡提諾狂新聞 published a note.         486             83
 ## 48                             &lt;NA&gt;        9228            705
-## 49                             &lt;NA&gt;       23735           3328
+## 49                             &lt;NA&gt;       23736           3328
 ## 50                             &lt;NA&gt;        3906            176
 ##    shares_count
-## 1           133
-## 2           761
+## 1           143
+## 2           785
 ## 3             2
-## 4          2504
+## 4          2506
 ## 5            43
 ## 6            16
-## 7          2098
+## 7          2100
 ## 8            58
 ## 9            65
 ## 10            0
@@ -405,7 +422,7 @@ pages_crazyck101 &lt;- getPage(page=&quot;crazyck101&quot;, token = token, n=50)
 ## 12          160
 ## 13          504
 ## 14           81
-## 15         1976
+## 15         1974
 ## 16           17
 ## 17           11
 ## 18           23
@@ -427,7 +444,7 @@ pages_crazyck101 &lt;- getPage(page=&quot;crazyck101&quot;, token = token, n=50)
 ## 34         1317
 ## 35         1396
 ## 36          143
-## 37         7801
+## 37         7798
 ## 38           60
 ## 39          220
 ## 40         1547
@@ -441,24 +458,9 @@ pages_crazyck101 &lt;- getPage(page=&quot;crazyck101&quot;, token = token, n=50)
 ## 48          220
 ## 49         3897
 ## 50           49</code></pre>
+<pre class="r"><code>write.csv(pages_crazyck101, file = &quot;posts_crazyck101.csv&quot;)</code></pre>
 <pre class="r"><code>#卡提諾 按讚留言分享數
-library(tidyverse)</code></pre>
-<pre><code>## Warning: package 'tidyverse' was built under R version 3.4.2</code></pre>
-<pre><code>## Loading tidyverse: ggplot2
-## Loading tidyverse: tibble
-## Loading tidyverse: tidyr
-## Loading tidyverse: readr
-## Loading tidyverse: purrr
-## Loading tidyverse: dplyr</code></pre>
-<pre><code>## Warning: package 'tibble' was built under R version 3.4.2</code></pre>
-<pre><code>## Warning: package 'tidyr' was built under R version 3.4.2</code></pre>
-<pre><code>## Warning: package 'readr' was built under R version 3.4.2</code></pre>
-<pre><code>## Warning: package 'purrr' was built under R version 3.4.2</code></pre>
-<pre><code>## Warning: package 'dplyr' was built under R version 3.4.2</code></pre>
-<pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
-<pre><code>## filter(): dplyr, stats
-## lag():    dplyr, stats</code></pre>
-<pre class="r"><code>df_crazyck101 &lt;- pages_crazyck101 %&gt;%
+df_crazyck101 &lt;- pages_crazyck101 %&gt;%
   group_by(type) %&gt;%
   summarise(likes=mean(likes_count), comments=mean(comments_count), shares=mean(shares_count)) %&gt;%
   arrange(desc(shares))</code></pre>
@@ -467,8 +469,8 @@ library(tidyverse)</code></pre>
 <pre><code>## # A tibble: 3 x 4
 ##     type     likes  comments    shares
 ##    &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-## 1  video 10378.080 2313.8400 1785.0400
-## 2  photo  5064.333  245.9048  111.2857
+## 1  video 10379.840 2313.8800 1785.0000
+## 2  photo  5088.857  247.9524  112.9048
 ## 3 status   324.250   37.5000    5.2500</code></pre>
 <pre class="r"><code>#卡提諾 最多分享的貼文
 library(stringr)
@@ -498,7 +500,7 @@ str_split(summary_crazyck101$message, &quot;\n&quot;)</code></pre>
 ## [21] &quot;抽獎日期：可能是10/26&quot;                                     
 ## [22] &quot;#卡提諾狂新聞 #狂抽猛送&quot;</code></pre>
 <pre class="r"><code>#卡提諾 最多分享的貼文 網友留言內容
-post_crazyck101 &lt;- getPost(pages_crazyck101$id[37], token=token, n.comments=20, likes=FALSE)
+post_crazyck101 &lt;- getPost(pages_crazyck101_o$id[37], token=token, n.comments=20, likes=FALSE)
 comments_crazyck101 &lt;- post_crazyck101$comments
 comments_crazyck101[,3]</code></pre>
 <pre><code>##  [1] &quot;我是代言人我也想抽到獎&lt;ed&gt;&lt;U+00A0&gt;&lt;U+00BC&gt;&lt;ed&gt;&lt;U+00BE&gt;&lt;U+0089&gt;&lt;ed&gt;&lt;U+00A0&gt;&lt;U+00BC&gt;&lt;ed&gt;&lt;U+00BE&gt;&lt;U+0089&gt;&lt;ed&gt;&lt;U+00A0&gt;&lt;U+00BC&gt;&lt;ed&gt;&lt;U+00BE&gt;&lt;U+0089&gt;&lt;ed&gt;&lt;U+00A0&gt;&lt;U+00BC&gt;&lt;ed&gt;&lt;U+00BE&gt;&lt;U+0089&gt;&quot;                                                                                                                                                                                                                   

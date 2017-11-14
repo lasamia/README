@@ -1,15 +1,17 @@
-```{r}
+```{r, echo=TRUE}
 library(Rfacebook)
 token <- "EAACEdEose0cBAOQJZAm8EZCmZCrKN2cr2hvnH9lAprXJABNbLkQuCWd83RSY5rCDSRu2pGGlWLMEOegod2Qrw7x8P36J2DNJlSgbAoFhxl2kEu5MhL8BNviLVOidZBaPuGhhZB7FjWTZCSH5LZBZCurcOlORvZALynv1XQGmytspD7dV89YKNfh8RcCg3vbgJOFc664cZCZAVPBKgZDZD"
 ```
 
-```{r}
+```{r, echo=TRUE}
 #端傳媒 最近50筆資料
-pages_theinitium <- getPage(page="theinitium", token = token, n=50)  
-pages_theinitium[,c(-1, -7)]
+pages_theinitium_o <- getPage(page="theinitium", token = token, n=50)  
+pages_theinitium <- pages_theinitium_o[,c(-1, -7)]
+pages_theinitium
+write.csv(pages_theinitium, file = "posts_theinitium.csv")
 ```
 
-```{r}
+```{r, echo=TRUE}
 #端傳媒 按讚留言分享數
 library(tidyverse)
 df_theinitium <- pages_theinitium %>%
@@ -19,16 +21,16 @@ df_theinitium <- pages_theinitium %>%
 df_theinitium
 ```
 
-```{r}
+```{r, echo=TRUE}
 #端傳媒 最多分享的貼文
 library(stringr)
 summary_theinitium <- pages_theinitium[which.max(pages_theinitium$shares_count),]
 str_split(summary_theinitium$message, "\n")
 ```
 
-```{r}
+```{r, echo=TRUE}
 #端傳媒 最多分享的貼文 網友留言內容
-post_theinitium <- getPost(pages_theinitium$id[37], token=token, n.comments=20, likes=FALSE)
+post_theinitium <- getPost(pages_theinitium_o$id[39], token=token, n.comments=20, likes=FALSE)
 comments_theinitium <- post_theinitium$comments
 comments_theinitium[,3]
 ```

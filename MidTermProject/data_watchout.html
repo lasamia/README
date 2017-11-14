@@ -149,9 +149,10 @@ $(document).ready(function () {
 <pre class="r"><code>library(stringr)
 token &lt;- &quot;EAACEdEose0cBAOQJZAm8EZCmZCrKN2cr2hvnH9lAprXJABNbLkQuCWd83RSY5rCDSRu2pGGlWLMEOegod2Qrw7x8P36J2DNJlSgbAoFhxl2kEu5MhL8BNviLVOidZBaPuGhhZB7FjWTZCSH5LZBZCurcOlORvZALynv1XQGmytspD7dV89YKNfh8RcCg3vbgJOFc664cZCZAVPBKgZDZD&quot;</code></pre>
 <pre class="r"><code>#沃草 最近50筆資料
-pages_watchout.tw &lt;- getPage(page=&quot;watchout.tw&quot;, token = token, n=50)  </code></pre>
+pages_watchout.tw_o &lt;- getPage(page=&quot;watchout.tw&quot;, token = token, n=50)  </code></pre>
 <pre><code>## 25 posts 50 posts</code></pre>
-<pre class="r"><code>pages_watchout.tw[,c(-1, -7)]</code></pre>
+<pre class="r"><code>pages_watchout.tw &lt;- pages_watchout.tw_o[,c(-1, -7)]
+pages_watchout.tw</code></pre>
 <pre><code>##        from_name
 ## 1  沃草 Watchout
 ## 2  沃草 Watchout
@@ -408,10 +409,10 @@ pages_watchout.tw &lt;- getPage(page=&quot;watchout.tw&quot;, token = token, n=5
 ## 49                               沃草 Watchout added 4 new photos.
 ## 50                                                            &lt;NA&gt;
 ##    likes_count comments_count shares_count
-## 1           85              0            0
-## 2          104              1            5
+## 1           91              0            0
+## 2          109              1            5
 ## 3          454              7           37
-## 4          337             25            0
+## 4          339             25            0
 ## 5          151              8            6
 ## 6          168              9            0
 ## 7          352             13           11
@@ -458,6 +459,7 @@ pages_watchout.tw &lt;- getPage(page=&quot;watchout.tw&quot;, token = token, n=5
 ## 48          33              1            5
 ## 49          39              0            0
 ## 50          98             13            1</code></pre>
+<pre class="r"><code>write.csv(pages_watchout.tw, file = &quot;posts_watchout.csv&quot;)</code></pre>
 <pre class="r"><code>#沃草 按讚留言分享數
 df_watchout.tw &lt;- pages_watchout.tw %&gt;%
   group_by(type) %&gt;%
@@ -469,8 +471,8 @@ df_watchout.tw &lt;- pages_watchout.tw %&gt;%
 ##    type    likes comments   shares
 ##   &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;
 ## 1 video 372.0000 43.00000 72.00000
-## 2 photo 413.1667 19.88889 50.27778
-## 3  link 354.8710 19.96774 36.38710</code></pre>
+## 2 photo 413.6111 19.88889 50.27778
+## 3  link 355.0323 19.96774 36.38710</code></pre>
 <pre class="r"><code>#沃草 最多分享的貼文
 summary_watchout.tw &lt;- pages_watchout.tw[which.max(pages_watchout.tw$shares_count),]
 str_split(summary_watchout.tw$message, &quot;\n&quot;)</code></pre>
@@ -483,7 +485,7 @@ str_split(summary_watchout.tw$message, &quot;\n&quot;)</code></pre>
 ## [6] &quot;修法前先回顧一下&quot;                                                          
 ## [7] &quot;【#沃草議題實驗室】 勞基法修法比較：https://lab.watchout.tw/data-reports/5&quot;</code></pre>
 <pre class="r"><code>#沃草 最多分享的貼文 網友留言內容
-post_watchout.tw &lt;- getPost(pages_watchout.tw$id[28], token=token, n.comments=20, likes=FALSE)
+post_watchout.tw &lt;- getPost(pages_watchout.tw_o$id[28], token=token, n.comments=20, likes=FALSE)
 comments_watchout.tw &lt;- post_watchout.tw$comments
 str_split(comments_watchout.tw[,3], &quot;\n&quot;)</code></pre>
 <pre><code>## [[1]]

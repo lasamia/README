@@ -149,9 +149,10 @@ $(document).ready(function () {
 <pre class="r"><code>library(stringr)
 token &lt;- &quot;EAACEdEose0cBABs6xCfWQbxhxkcckYyHNco8rHttwAZASB3LyZBgrNJJqAUlSw8z0u9BWfcHcMvaSxMDhDfod0KjJRJzvr6YZB4rZAdRUZAjyeVsbI2z4gNnZBcDv1RicKUgSRIZC8zMRSnZAQfekb3S64JK4PWj07Q7wN137PiFvkidXCl9ziXZBlM4nrkZAnAdUPgXUiZATeQygZDZD&quot;</code></pre>
 <pre class="r"><code>#報導者 最近50筆資料
-pages_twreporter &lt;- getPage(page=&quot;twreporter&quot;, token = token, n=50)  </code></pre>
+pages_twreporter_o &lt;- getPage(page=&quot;twreporter&quot;, token = token, n=50)  </code></pre>
 <pre><code>## 25 posts 50 posts</code></pre>
-<pre class="r"><code>pages_twreporter[,c(-1, -7)]</code></pre>
+<pre class="r"><code>pages_twreporter &lt;- pages_twreporter_o[,c(-1, -7)]
+pages_twreporter</code></pre>
 <pre><code>##              from_name
 ## 1  報導者 The Reporter
 ## 2  報導者 The Reporter
@@ -357,9 +358,9 @@ pages_twreporter &lt;- getPage(page=&quot;twreporter&quot;, token = token, n=50)
 ## 49                                                       https://www.twreporter.org/a/opinion-china-national-congress
 ## 50 https://www.facebook.com/twreporter/photos/a.1646706185577247.1073741828.1646675415580324/1975662832681579/?type=3
 ##                                       story likes_count comments_count
-## 1                                      &lt;NA&gt;         211              0
-## 2       報導者 The Reporter added an event.         484             14
-## 3                                      &lt;NA&gt;        1525             11
+## 1                                      &lt;NA&gt;         226              0
+## 2       報導者 The Reporter added an event.         512             14
+## 3                                      &lt;NA&gt;        1529             11
 ## 4                                      &lt;NA&gt;         164              0
 ## 5                                      &lt;NA&gt;         228              3
 ## 6                                      &lt;NA&gt;         149              0
@@ -367,7 +368,7 @@ pages_twreporter &lt;- getPage(page=&quot;twreporter&quot;, token = token, n=50)
 ## 8                                      &lt;NA&gt;         244              0
 ## 9                                      &lt;NA&gt;         315              3
 ## 10                                     &lt;NA&gt;         926              9
-## 11                                     &lt;NA&gt;         203              4
+## 11                                     &lt;NA&gt;         204              4
 ## 12                                     &lt;NA&gt;         223              2
 ## 13                                     &lt;NA&gt;        1006              7
 ## 14                                     &lt;NA&gt;        1028              5
@@ -410,7 +411,7 @@ pages_twreporter &lt;- getPage(page=&quot;twreporter&quot;, token = token, n=50)
 ##    shares_count
 ## 1            25
 ## 2             0
-## 3           324
+## 3           326
 ## 4            20
 ## 5            20
 ## 6            14
@@ -422,9 +423,9 @@ pages_twreporter &lt;- getPage(page=&quot;twreporter&quot;, token = token, n=50)
 ## 12            7
 ## 13          143
 ## 14          143
-## 15        12759
+## 15        12760
 ## 16          160
-## 17        12759
+## 17        12760
 ## 18           22
 ## 19           89
 ## 20           87
@@ -458,6 +459,7 @@ pages_twreporter &lt;- getPage(page=&quot;twreporter&quot;, token = token, n=50)
 ## 48          131
 ## 49           22
 ## 50            1</code></pre>
+<pre class="r"><code>write.csv(pages_twreporter, file = &quot;posts_twreporter.csv&quot;)</code></pre>
 <pre class="r"><code>#報導者 按讚留言分享數
 df_twreporter &lt;- pages_twreporter %&gt;%
   group_by(type) %&gt;%
@@ -468,10 +470,10 @@ df_twreporter &lt;- pages_twreporter %&gt;%
 <pre><code>## # A tibble: 4 x 4
 ##    type     likes  comments     shares
 ##   &lt;chr&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-## 1 photo 1201.4286 17.285714 3850.57143
+## 1 photo 1201.4286 17.285714 3850.85714
 ## 2 video 1475.0000 25.250000  810.00000
-## 3  link  559.7895  5.368421   85.89474
-## 4 event  484.0000 14.000000    0.00000</code></pre>
+## 3  link  560.3158  5.368421   85.94737
+## 4 event  512.0000 14.000000    0.00000</code></pre>
 <pre class="r"><code>#報導者 最多分享的貼文
 summary_twreporter &lt;- pages_twreporter[which.max(pages_twreporter$shares_count),]
 str_split(summary_twreporter$message, &quot;\n&quot;)</code></pre>
@@ -485,7 +487,7 @@ str_split(summary_twreporter$message, &quot;\n&quot;)</code></pre>
 ## [7] &quot;&quot;                                                                                                                                                                                                            
 ## [8] &quot;蔡英文 Tsai Ing-wen 中華民國行政院 賴清德 民進黨立法院黨團 勞動部  ＃勞權 ＃過勞之島 ＃一例一休 ＃勞工 ＃報導者&quot;</code></pre>
 <pre class="r"><code>#報導者 最多分享的貼文 網友留言內容
-post_twreporter &lt;- getPost(pages_twreporter$id[15], token=token, n.comments=20, likes=FALSE)
+post_twreporter &lt;- getPost(pages_twreporter_o$id[15], token=token, n.comments=20, likes=FALSE)
 comments_twreporter &lt;- post_twreporter$comments
 comments_twreporter[,3]</code></pre>
 <pre><code>## [1] &quot;跟大家更新一下\n【最新進度】行政院版號稱增加「把關機制」：\n(1) 以行業別報中央目的事業主關機關同意；\n(2) 勞動部審查是否為可鬆綁行業；\n(3) 個別企業經工會或勞資會議同意；\n(4) 30人以上事業單位須報主管機關備查。&quot;
