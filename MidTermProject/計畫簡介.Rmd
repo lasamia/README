@@ -16,15 +16,23 @@ Media（媒介）一詞大略可以分成兩類：「內容提供者」和「社
 資料夾的檔案
 
 1.卡提諾狂新聞、端傳媒、報導者及沃草最近50則粉專貼文:
+
 posts_crazyck101.csv
+
 posts_theinitium.csv
+
 posts_twreporter.csv
+
 posts_watchout.csv
 
 2.按讚留言分享數、最多分享的貼文、最多分享的貼文中網友留言內容:
 data_crazyck101.Rmd
+
+
 data_theinitium.Rmd
+
 data_twreporter.Rmd
+
 data_watchout.Rmd
 
 3.處理文本作詞頻分析:
