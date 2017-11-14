@@ -26,8 +26,8 @@ posts_twreporter.csv
 posts_watchout.csv
 
 2.按讚留言分享數、最多分享的貼文、最多分享的貼文中網友留言內容:
-data_crazyck101.Rmd
 
+data_crazyck101.Rmd
 
 data_theinitium.Rmd
 
