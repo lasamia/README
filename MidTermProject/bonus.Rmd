@@ -1,0 +1,220 @@
+```{r}
+library(Rfacebook)
+token <- "EAACEdEose0cBAOQJZAm8EZCmZCrKN2cr2hvnH9lAprXJABNbLkQuCWd83RSY5rCDSRu2pGGlWLMEOegod2Qrw7x8P36J2DNJlSgbAoFhxl2kEu5MhL8BNviLVOidZBaPuGhhZB7FjWTZCSH5LZBZCurcOlORvZALynv1XQGmytspD7dV89YKNfh8RcCg3vbgJOFc664cZCZAVPBKgZDZD"
+```
+
+```{r}
+#卡提諾 最近50筆資料
+pages_crazyck101 <- getPage(page="crazyck101", token = token, n=50)  
+pages_crazyck101[,c(-1, -7)]
+```
+
+```{r}
+#卡提諾 按讚留言分享數
+library(tidyverse)
+df_crazyck101 <- pages_crazyck101 %>%
+  group_by(type) %>%
+  summarise(likes=mean(likes_count), comments=mean(comments_count), shares=mean(shares_count)) %>%
+  arrange(desc(shares))
+df_crazyck101
+```
+
+```{r}
+#端傳媒 最近50筆資料
+pages_theinitium <- getPage(page="theinitium", token = token, n=50)  
+pages_theinitium[,c(-1, -7)]
+```
+
+```{r}
+#端傳媒 按讚留言分享數
+df_theinitium <- pages_theinitium %>%
+  group_by(type) %>%
+  summarise(likes=mean(likes_count), comments=mean(comments_count), shares=mean(shares_count)) %>%
+  arrange(desc(shares))
+df_theinitium
+```
+
+```{r}
+#報導者 最近50筆資料
+pages_twreporter <- getPage(page="twreporter", token = token, n=50)  
+pages_twreporter[,c(-1, -7)]
+```
+
+```{r}
+#報導者 按讚留言分享數
+df_twreporter <- pages_twreporter %>%
+  group_by(type) %>%
+  summarise(likes=mean(likes_count), comments=mean(comments_count), shares=mean(shares_count)) %>%
+  arrange(desc(shares))
+df_twreporter
+```
+
+```{r}
+#沃草 最近50筆資料
+pages_watchout.tw <- getPage(page="watchout.tw", token = token, n=50)  
+pages_watchout.tw[,c(-1, -7)]
+```
+
+```{r}
+#沃草 按讚留言分享數
+df_watchout.tw <- pages_watchout.tw %>%
+  group_by(type) %>%
+  summarise(likes=mean(likes_count), comments=mean(comments_count), shares=mean(shares_count)) %>%
+  arrange(desc(shares))
+df_watchout.tw
+```
+
+
+
+```{r}
+#卡提諾 最多分享的貼文
+library(stringr)
+summary_crazyck101 <- pages_crazyck101[which.max(pages_crazyck101$shares_count),]
+卡提諾 <- str_split(summary_crazyck101$message, "\n")
+卡提諾
+paste((卡提諾), collapse='' )
+```
+
+```{r}
+#卡提諾 最多分享的貼文 網友留言內容
+post_crazyck101 <- getPost(pages_crazyck101$id[37], token=token, n.comments=20, likes=FALSE)
+comments_crazyck101 <- post_crazyck101$comments
+comments_crazyck101[,3]
+```
+
+```{r}
+#端傳媒 最多分享的貼文
+summary_theinitium <- pages_theinitium[which.max(pages_theinitium$shares_count),]
+端傳媒 <-str_split(summary_theinitium$message, "\n")
+```
+
+```{r}
+#端傳媒 最多分享的貼文 網友留言內容
+post_theinitium <- getPost(pages_theinitium$id[37], token=token, n.comments=20, likes=FALSE)
+comments_theinitium <- post_theinitium$comments
+comments_theinitium[,3]
+```
+
+```{r}
+#報導者 最多分享的貼文
+summary_twreporter <- pages_twreporter[which.max(pages_twreporter$shares_count),]
+報導者 <- str_split(summary_twreporter$message, "\n")
+```
+
+```{r}
+#報導者 最多分享的貼文 網友留言內容
+post_twreporter <- getPost(pages_twreporter$id[15], token=token, n.comments=20, likes=FALSE)
+comments_twreporter <- post_twreporter$comments
+comments_twreporter[,3]
+```
+
+```{r}
+#沃草 最多分享的貼文
+summary_watchout.tw <- pages_watchout.tw[which.max(pages_watchout.tw$shares_count),]
+沃草 <-str_split(summary_watchout.tw$message, "\n")
+
+```
+
+```{r}
+#沃草 最多分享的貼文 網友留言內容
+post_watchout.tw <- getPost(pages_watchout.tw$id[28], token=token, n.comments=20, likes=FALSE)
+comments_watchout.tw <- post_watchout.tw$comments
+str_split(comments_watchout.tw[,3], "\n")
+```
+
+```{r}
+# 處理卡提諾文本
+library(jiebaR)
+
+卡提諾 <- unlist(卡提諾)
+cutter<- worker()
+segWords<-segment(卡提諾,cutter)
+
+stopwords<-c('我','你','他','的','我們','了','把')
+for(i in 1:nchar(卡提諾))
+  {
+  stopwords[i]<-卡提諾[i]
+}
+segWords<-filter_segment(segWords,stopwords)
+
+counting <- freq(segWords)
+counting$freq <- as.numeric(counting$freq)
+counting <- counting %>%
+  filter(freq > 2) %>%
+  arrange(desc(freq))
+
+卡提諾高頻字 <- counting
+卡提諾高頻字
+```
+
+```{r}
+# 處理端傳媒文本
+端傳媒 <- unlist(端傳媒)
+cutter<- worker()
+segWords<-segment(端傳媒,cutter)
+
+stopwords<-c('我','你','他','的','我們','了','把')
+for(i in 1:nchar(端傳媒))
+  {
+  stopwords[i]<-端傳媒[i]
+}
+segWords<-filter_segment(segWords,stopwords)
+
+counting <- freq(segWords)
+counting$freq <- as.numeric(counting$freq)
+counting <- counting %>%
+  filter(freq > 2) %>%
+  arrange(desc(freq))
+
+端傳媒高頻字 <- counting
+端傳媒高頻字
+```
+
+```{r}
+# 處理報導者文本
+報導者 <- unlist(報導者)
+cutter<- worker()
+segWords<-segment(報導者,cutter)
+
+stopwords<-c('我','你','他','的','我們','了','把')
+for(i in 1:nchar(報導者))
+  {
+  stopwords[i]<-報導者[i]
+}
+segWords<-filter_segment(segWords,stopwords)
+
+counting <- freq(segWords)
+counting$freq <- as.numeric(counting$freq)
+counting <- counting %>%
+  filter(freq > 2) %>%
+  arrange(desc(freq))
+
+報導者高頻字 <- counting
+報導者高頻字
+```
+
+```{r}
+# 處理沃草文本
+沃草 <- unlist(沃草)
+cutter<- worker()
+segWords<-segment(沃草,cutter)
+
+stopwords<-c('我','你','他','的','我們','了','把')
+for(i in 1:nchar(沃草))
+  {
+  stopwords[i]<-沃草[i]
+}
+segWords<-filter_segment(segWords,stopwords)
+
+counting <- freq(segWords)
+counting$freq <- as.numeric(counting$freq)
+counting <- counting %>%
+  filter(freq > 1) %>%
+  arrange(desc(freq))
+
+沃草高頻字 <- counting
+沃草高頻字
+```
+
+
+
