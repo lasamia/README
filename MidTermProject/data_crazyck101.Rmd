@@ -1,0 +1,34 @@
+```{r}
+library(Rfacebook)
+token <- "EAACEdEose0cBAOQJZAm8EZCmZCrKN2cr2hvnH9lAprXJABNbLkQuCWd83RSY5rCDSRu2pGGlWLMEOegod2Qrw7x8P36J2DNJlSgbAoFhxl2kEu5MhL8BNviLVOidZBaPuGhhZB7FjWTZCSH5LZBZCurcOlORvZALynv1XQGmytspD7dV89YKNfh8RcCg3vbgJOFc664cZCZAVPBKgZDZD"
+```
+
+```{r}
+#卡提諾 最近50筆資料
+pages_crazyck101 <- getPage(page="crazyck101", token = token, n=50)  
+pages_crazyck101[,c(-1, -7)]
+```
+
+```{r}
+#卡提諾 按讚留言分享數
+library(tidyverse)
+df_crazyck101 <- pages_crazyck101 %>%
+  group_by(type) %>%
+  summarise(likes=mean(likes_count), comments=mean(comments_count), shares=mean(shares_count)) %>%
+  arrange(desc(shares))
+df_crazyck101
+```
+
+```{r}
+#卡提諾 最多分享的貼文
+library(stringr)
+summary_crazyck101 <- pages_crazyck101[which.max(pages_crazyck101$shares_count),]
+str_split(summary_crazyck101$message, "\n")
+```
+
+```{r}
+#卡提諾 最多分享的貼文 網友留言內容
+post_crazyck101 <- getPost(pages_crazyck101$id[37], token=token, n.comments=20, likes=FALSE)
+comments_crazyck101 <- post_crazyck101$comments
+comments_crazyck101[,3]
+```

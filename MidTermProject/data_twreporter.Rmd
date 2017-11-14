@@ -1,0 +1,34 @@
+```{r}
+library(Rfacebook)
+library(tidyverse)
+library(stringr)
+token <- "EAACEdEose0cBABs6xCfWQbxhxkcckYyHNco8rHttwAZASB3LyZBgrNJJqAUlSw8z0u9BWfcHcMvaSxMDhDfod0KjJRJzvr6YZB4rZAdRUZAjyeVsbI2z4gNnZBcDv1RicKUgSRIZC8zMRSnZAQfekb3S64JK4PWj07Q7wN137PiFvkidXCl9ziXZBlM4nrkZAnAdUPgXUiZATeQygZDZD"
+```
+
+```{r}
+#報導者 最近50筆資料
+pages_twreporter <- getPage(page="twreporter", token = token, n=50)  
+pages_twreporter[,c(-1, -7)]
+```
+
+```{r}
+#報導者 按讚留言分享數
+df_twreporter <- pages_twreporter %>%
+  group_by(type) %>%
+  summarise(likes=mean(likes_count), comments=mean(comments_count), shares=mean(shares_count)) %>%
+  arrange(desc(shares))
+df_twreporter
+```
+
+```{r}
+#報導者 最多分享的貼文
+summary_twreporter <- pages_twreporter[which.max(pages_twreporter$shares_count),]
+str_split(summary_twreporter$message, "\n")
+```
+
+```{r}
+#報導者 最多分享的貼文 網友留言內容
+post_twreporter <- getPost(pages_twreporter$id[15], token=token, n.comments=20, likes=FALSE)
+comments_twreporter <- post_twreporter$comments
+comments_twreporter[,3]
+```
